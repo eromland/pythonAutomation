@@ -7,18 +7,24 @@ dirToWatch = "/home/erlend/Downloads"
 dirToMove = "/home/erlend/Videos"
 
 class myHandler(FileSystemEventHandler):
-    def on_created(self, event):
-        print(f" {event.src_path} has been created!")
-        if os.path.isdir(event.src_path):
-            for file in os.listdir(event.src_path):
-                if file.endswith(".mkv"):
-                    newFilename = dirToMove + event.src_path
-                    os.rename(event.src_path, newFilename)
+    def on_modified(self, event):
+        print(f" {event.src_path} has been modified!")
+        for filename in os.listdir(dirToWatch):
+            if os.path.isdir(filename):
+                print("1")
+                for file in os.listdir(filename):
+                    if file.endswith(".mkv"):
+                        oldFilename = dirToWatch + "/" + filename
+                        newFilename = dirToMove + "/" + filename
+                        os.rename(oldFilename, newFilename)
+                        print(filename + " has been moved to: " + dirToMove)
 
-        else:
-            if event.src_path.endswith(".mkv"):
-                    newFilename = dirToMove + "/" + event.src_path
-                    os.rename(event.src_path, newFilename)
+            else:
+                if filename.endswith(".mkv"):
+                    oldFilename = dirToWatch + "/" + filename
+                    newFilename = dirToMove + "/" + filename
+                    os.rename(oldFilename, newFilename)
+                    print(filename + " has been moved to: " + dirToMove)
 
 
 def main():
