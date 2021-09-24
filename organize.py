@@ -3,8 +3,8 @@ import os
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-dirToWatch = "/home/erlend/Downloads"
-dirToMove = "/home/erlend/Videos"
+dirToWatch = "PATH TO DOWNLOADS FOLDER"
+dirToMove = "PATH TO NEW DIRECTORY"
 
 class myHandler(FileSystemEventHandler):
     
